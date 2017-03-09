@@ -80,9 +80,10 @@ class CloudView(WidgetWrap):
         if self.whitelist:
             new_clouds = self.whitelist
         elif self.blacklist:
-            new_clouds = set(['localhost', 'maas']) ^ set(self.blacklist)
+            new_clouds = set(['localhost', 'maas', 'vsphere']) ^ set(
+                self.blacklist)
         else:
-            new_clouds = ['localhost', 'maas']
+            new_clouds = ['localhost', 'maas', 'vsphere']
         for item in new_clouds:
             total_items.append(
                 Color.body(

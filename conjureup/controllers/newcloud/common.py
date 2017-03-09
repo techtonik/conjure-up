@@ -1,6 +1,6 @@
 import os
 import os.path as path
-from subprocess import CalledProcessError, DEVNULL
+from subprocess import DEVNULL, CalledProcessError
 
 import yaml
 from pkg_resources import parse_version
@@ -24,7 +24,11 @@ def __format_creds(creds):
             # A Widget, but not stored in credentials
             continue
         else:
-            formatted[k] = v.value
+            if isinstance(v, tuple) and len(v) == 2:
+                # There is a friendly name in the widget
+                formatted[k] = v[1].value
+            else:
+                formatted[k] = v.value
     return formatted
 
 

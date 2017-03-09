@@ -28,6 +28,10 @@ Examples:
   ('_auth-type', 'oauth1) # Required, not editable and is stored.
   ('maas-oauth', StringEditor()) # required, editable, and stored.
 ])
+
+Additionally, you can set a friendly label for the input fields with
+
+('maas-oauth', ('MAAS Oauth', StringEditor())
 """
 
 Schema = OrderedDict([
@@ -130,10 +134,11 @@ Schema = OrderedDict([
         ('network', StringEditor())
     ])),
     ('vsphere', OrderedDict([
-        ('datacenter', StringEditor()),
-        ('host', StringEditor()),
-        ('user', StringEditor()),
-        ('password', PasswordEditor()),
+        ('_auth-type', 'userpass'),
+        ('host', ("vcenter api-endpoint", StringEditor())),
+        ('user', ("vcenter username", StringEditor())),
+        ('password', ("vcenter password", PasswordEditor())),
+        ('regions', ("datacenter", StringEditor())),
         ('external-network', StringEditor())
     ])),
     ('manual', OrderedDict([
