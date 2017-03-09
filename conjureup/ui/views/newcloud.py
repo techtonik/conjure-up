@@ -21,28 +21,17 @@ class NewCloudView(WidgetWrap):
         total_items = [Text(
             "Enter your {} credentials:".format(app.current_cloud.upper()))]
         total_items += [HR()]
-        for k in self.input_items.keys():
-            display = k
-            input_field = self.input_items[k]
-
-            if k.startswith('_'):
-                # Don't treat 'private' keys as input
-                continue
-            if k.startswith('@'):
-                # Strip public, not storable attribute
-                display = k[1:]
-            if isinstance(self.input_items[k], tuple) \
-               and len(self.input_items[k]) == 2:
-                # We've got a friendly name in the widgets tuple, eg:
-                #  ('vcenter api-endpoint', StringEditor())
-                display = self.input_items[k][0]
-                input_field = self.input_items[k][1]
+        for field in self.input_items['fields']:
+            label = field['key']
+            if field['label'] is not None:
+                label = field['label']
 
             col = Columns(
                 [
-                    ('weight', 0.5, Text(display, align='right')),
-                    Color.string_input(input_field,
-                                       focus_map='string_input focus')
+                    ('weight', 0.5, Text(label, align='right')),
+                    Color.string_input(
+                        field['input'],
+                        focus_map='string_input focus')
                 ], dividechars=1
             )
             total_items.append(col)

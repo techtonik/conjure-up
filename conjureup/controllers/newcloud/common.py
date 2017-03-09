@@ -15,20 +15,13 @@ def __format_creds(creds):
     """ Formats the credentials into strings from the widgets values
     """
     formatted = {}
-    for k, v in creds.items():
-        if k.startswith('_'):
-            # Not a widget but a private key
-            k = k[1:]
-            formatted[k] = v
-        elif k.startswith('@'):
-            # A Widget, but not stored in credentials
+    for field in creds['fields']:
+        if not field['storable']:
             continue
-        else:
-            if isinstance(v, tuple) and len(v) == 2:
-                # There is a friendly name in the widget
-                formatted[k] = v[1].value
-            else:
-                formatted[k] = v.value
+        if 'storable-as' in field:
+            if isinstance(field['storable-as'], list):
+                formatted[field['key']] = [field['input'].value]
+        formatted[field['key']] = field['input'].value
     return formatted
 
 
