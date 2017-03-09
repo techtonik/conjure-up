@@ -130,8 +130,6 @@ class NewCloudController:
 
         if credentials is not None:
             common.save_creds(app.current_cloud, credentials)
-        import sys
-        sys.exit(1)
         credentials_key = common.try_get_creds(app.current_cloud)
 
         cloud_with_creds = None
