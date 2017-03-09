@@ -132,7 +132,7 @@ def login(force=False):
 
 
 def bootstrap(controller, cloud, model='conjure-up', series="xenial",
-              credential=None):
+              credential=None, **kwargs):
     """ Performs juju bootstrap
 
     If not LXD pass along the newly defined credentials
@@ -201,7 +201,7 @@ def bootstrap(controller, cloud, model='conjure-up', series="xenial",
 
 
 def bootstrap_async(controller, cloud, model='conjure-up', credential=None,
-                    exc_cb=None):
+                    exc_cb=None, **kwargs):
     """ Performs a bootstrap asynchronously
     """
     return async.submit(partial(bootstrap,

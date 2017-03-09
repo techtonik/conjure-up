@@ -130,13 +130,14 @@ class NewCloudController:
 
         if credentials is not None:
             common.save_creds(app.current_cloud, credentials)
-
+        import sys
+        sys.exit(1)
         credentials_key = common.try_get_creds(app.current_cloud)
 
         cloud_with_creds = None
         if app.current_cloud == 'maas':
             cloud_with_creds = '{}/{}'.format(
-                app.current_cloud, credentials['@maas-server'].value)
+                app.current_cloud, credentials['fields'][0]['endpoint'].value)
         self.__do_bootstrap(credential=credentials_key,
                             cloud_with_creds=cloud_with_creds)
 
