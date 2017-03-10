@@ -22,44 +22,6 @@ class NewCloudView(WidgetWrap):
             "Enter your {} credentials:".format(app.current_cloud.upper()))]
         total_items += [HR()]
         for field in self.input_items['fields']:
-            if field['type'] != 'auth':
-                continue
-            label = field['key']
-            if field['label'] is not None:
-                label = field['label']
-
-            col = Columns(
-                [
-                    ('weight', 0.5, Text(label, align='right')),
-                    Color.string_input(
-                        field['input'],
-                        focus_map='string_input focus')
-                ], dividechars=1
-            )
-            total_items.append(col)
-            total_items.append(Padding.line_break(""))
-        return total_items
-
-    def _gen_provider_config(self):
-        has_options = len([x for x in self.input_items['fields']
-                           if x['type'] != 'auth']) > 0
-        if not has_options:
-            return []
-
-        total_items = [Columns(
-            [
-                ('weight', 0.5,
-                 Text(
-                     "{} connection details:".format(
-                         app.current_cloud.upper()),
-                     align='right')),
-                Text("")
-            ]
-        )]
-        total_items += [Padding.line_break("")]
-        for field in self.input_items['fields']:
-            if field['type'] == 'auth':
-                continue
             label = field['key']
             if field['label'] is not None:
                 label = field['label']
@@ -78,8 +40,6 @@ class NewCloudView(WidgetWrap):
 
     def _build_widget(self):
         total_items = self._gen_credentials()
-        total_items.append(Text(""))
-        total_items.extend(self._gen_provider_config())
         self.pile = Pile(total_items)
         return Padding.center_60(Filler(self.pile, valign="top"))
 

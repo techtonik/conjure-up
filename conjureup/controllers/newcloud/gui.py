@@ -135,7 +135,7 @@ class NewCloudController:
         cloud_with_creds = None
         if app.current_cloud == 'maas':
             cloud_with_creds = '{}/{}'.format(
-                app.current_cloud, credentials['fields'][0]['endpoint'].value)
+                app.current_cloud, credentials['fields'][0]['input'].value)
         self.__do_bootstrap(credential=credentials_key,
                             cloud_with_creds=cloud_with_creds)
 
@@ -165,7 +165,8 @@ class NewCloudController:
                 self.__do_bootstrap()
                 return
         except LookupError as e:
-            if app.current_cloud in ['maas', 'vsphere']:
+            # TODO: Add vsphere once lp bug 1671650 is resolved
+            if app.current_cloud in ['maas']:
                 app.log.debug(
                     "Not a cloud, using provider type: {}".format(
                         app.current_cloud))

@@ -4,31 +4,30 @@ from ubuntui.widgets.input import PasswordEditor, StringEditor, YesNo
 
 """ Defining the schema
 
-The schema contains attributes for rendering proper credentials and any
-specific provider configurations.
+The schema contains attributes for rendering proper credentials.
 
 A typical schema is:
 
 'auth-type': 'access-key' - defines the auth type supported by provider
 'fields': [] - editable fields in the ui, each field can contain:
-  'label' - Friendly label to the user
-  'input' - Input widget
-  'key'   - key that matches what the provider expects for authentication
-  'type'  - 2 types, one being 'auth' and pertains only to credentials, the
-            second is 'provider-name' which pertains to items added when
-            creating the cloud to use.
+  'label'    - Friendly label to the user
+  'input'    - Input widget
+  'key'      - key that matches what the provider expects for authentication
+  'storable' - if False will skip storing key=value in credentials
 """
 aws = {
     'auth-type': 'access-key',
     'fields': [
-        {'label': None,
-         'input': StringEditor(),
-         'key': 'access-key',
-         'type': 'auth'},
-        {'label': None,
-         'input': StringEditor(),
-         'key': 'secret-key',
-         'type': 'auth'}
+        {
+            'label': None,
+            'input': StringEditor(),
+            'key': 'access-key'
+        },
+        {
+            'label': None,
+            'input': StringEditor(),
+            'key': 'secret-key'
+        }
     ]
 }
 
@@ -39,13 +38,12 @@ maas = {
             'label': 'server address (only the ip or dns name)',
             'input': StringEditor(),
             'key': 'endpoint',
-            'type': 'maas',
+            'storable': False
         },
         {
             'label': 'api key',
             'input': StringEditor(),
-            'key': 'maas-oauth',
-            'type': 'auth'
+            'key': 'maas-oauth'
         }
     ]
 }
@@ -56,33 +54,28 @@ azure = {
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'application-id',
-            'type': 'auth'
+            'key': 'application-id'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'subscription-id',
-            'type': 'auth'
+            'key': 'subscription-id'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'tenant-id',
-            'type': 'auth'
+            'key': 'tenant-id'
         },
         {
             'label': None,
             'input': PasswordEditor(),
-            'key': 'application-password',
-            'type': 'auth'
-        },
-        {
-            'label': None,
-            'input': StringEditor(),
-            'key': 'storage-account-type',
-            'type': 'azure'
+            'key': 'application-password'
         }
+        # {
+        #     'label': None,
+        #     'input': StringEditor(),
+        #     'key': 'storage-account-type'
+        # }
     ]
 }
 
@@ -92,26 +85,22 @@ google = {
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'private-key',
-            'type': 'auth'
+            'key': 'private-key'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'client-id',
-            'type': 'auth'
+            'key': 'client-id'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'client-email',
-            'type': 'auth'
+            'key': 'client-email'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'project-id',
-            'type': 'auth'
+            'key': 'project-id'
         }
     ]
 }
@@ -122,14 +111,12 @@ cloudsigma = {
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'username',
-            'type': 'auth'
+            'key': 'username'
         },
         {
             'label': None,
             'input': PasswordEditor(),
-            'key': 'password',
-            'type': 'auth'
+            'key': 'password'
         }
 
     ]
@@ -141,26 +128,22 @@ joyent = {
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'sdc-user',
-            'type': 'auth'
+            'key': 'sdc-user'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'sdc-key-id',
-            'type': 'auth'
+            'key': 'sdc-key-id'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'private-key',
-            'type': 'auth'
+            'key': 'private-key'
         },
         {
             'label': None,
             'input': StringEditor(default='rsa-sha256'),
-            'key': 'algorithm',
-            'type': 'auth'
+            'key': 'algorithm'
         }
     ]
 }
@@ -171,75 +154,66 @@ openstack = {
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'username',
-            'type': 'auth'
+            'key': 'username'
         },
         {
             'label': None,
             'input': PasswordEditor(),
-            'key': 'password',
-            'type': 'auth'
+            'key': 'password'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'tenant-name',
-            'type': 'auth'
+            'key': 'tenant-name'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'domain-name',
-            'type': 'auth'
+            'key': 'domain-name'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'project-domain-name',
-            'type': 'auth'
+            'key': 'project-domain-name'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'access-key',
-            'type': 'auth'
+            'key': 'access-key'
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'secret-key',
-            'type': 'auth'
+            'key': 'secret-key'
         },
-        {
-            'label': None,
-            'input': StringEditor(),
-            'key': 'region',
-            'type': 'openstack'
-        },
-        {
-            'label': None,
-            'input': YesNo(),
-            'key': 'use-floating-ip',
-            'type': 'openstack'
-        },
-        {
-            'label': None,
-            'input': YesNo(),
-            'key': 'use-default-secgroup',
-            'type': 'openstack'
-        },
-        {
-            'label': None,
-            'input': StringEditor(),
-            'key': 'network',
-            'type': 'openstack'
-        },
-        {
-            'label': None,
-            'input': StringEditor(),
-            'key': 'external-network',
-            'type': 'openstack'
-        }
+        # {
+        #     'label': None,
+        #     'input': StringEditor(),
+        #     'key': 'region',
+        #     'type': 'openstack'
+        # },
+        # {
+        #     'label': None,
+        #     'input': YesNo(),
+        #     'key': 'use-floating-ip',
+        #     'type': 'openstack'
+        # },
+        # {
+        #     'label': None,
+        #     'input': YesNo(),
+        #     'key': 'use-default-secgroup',
+        #     'type': 'openstack'
+        # },
+        # {
+        #     'label': None,
+        #     'input': StringEditor(),
+        #     'key': 'network'
+        # },
+        # {
+        #     'label': None,
+        #     'input': StringEditor(),
+        #     'key': 'external-network'
+        # }
     ]
 }
 
@@ -250,25 +224,23 @@ vsphere = {
             'label': 'api-endpoint',
             'input': StringEditor(),
             'key': 'endpoint',
-            'type': 'provider'
+            'storable': False
         },
         {
             'label': None,
             'input': StringEditor(),
-            'key': 'user',
-            'type': 'auth'
+            'key': 'user'
         },
         {
             'label': None,
             'input': PasswordEditor(),
-            'key': 'password',
-            'type': 'auth'
+            'key': 'password'
         },
         {
             'label': None,
             'input': StringEditor(),
             'key': 'external-network',
-            'type': 'vsphere'
+            'storable': False
         },
     ]
 }

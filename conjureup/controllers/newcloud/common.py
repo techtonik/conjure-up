@@ -17,7 +17,7 @@ def __format_creds(creds):
     formatted = {}
     formatted['auth-type'] = creds['auth-type']
     for field in creds['fields']:
-        if 'type' in field and field['type'] != 'auth':
+        if 'storable' in field and not field['storable']:
             continue
         formatted[field['key']] = field['input'].value
     return formatted
