@@ -121,6 +121,12 @@ class StepsController:
                     app,
                     model,
                     self.finish)
+                if step_widget.model.runnable \
+                   and not step_widget.model.viewable:
+                    app.log.debug("Found runnable step: {}".format(
+                        step_widget))
+                    step_widgets.append(step_widget)
+                    continue
                 if not step_widget.model.viewable:
                     app.log.debug("Skipping step: {}".format(step_widget))
                     continue

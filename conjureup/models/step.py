@@ -10,7 +10,7 @@ class StepModel:
         self.description = step.get('description', '')
         self.result = ''
         self.viewable = step.get('viewable', False)
-
+        self.runnable = step.get('runnable', False)
         self.additional_input = step.get('additional-input', [])
 
     def __getattr__(self, attr):
